@@ -1,0 +1,23 @@
+{
+  "name": "3JCoreMaterial",
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-ui-router": "~0.2.15",
+    "polymer": "Polymer/polymer#^1.2.0",
+    "iron-flex-layout": "PolymerElements/iron-flex-layout#~1.2.2",
+    "paper-toolbar": "PolymerElements/paper-toolbar#~1.1.2",
+    "paper-icon-button": "PolymerElements/paper-icon-button#~1.0.6",
+    "iron-media-query": "PolymerElements/iron-media-query#~1.0.8"
+  }
+}

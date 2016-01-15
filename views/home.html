@@ -1,0 +1,24 @@
+<!-- paper-header-panel must have an explicit height -->
+<paper-header-panel class="flex" mode="waterfall">
+
+    <paper-toolbar>
+        <paper-icon-button icon="search" on-tap="menuAction"></paper-icon-button>
+        <div class="title">Title</div>
+    </paper-toolbar>
+
+    <div>
+        <br>
+        <iron-media-query query="(max-width: 600px)" query-matches="{{smallScreen}}"></iron-media-query>
+
+        <div class="layout" ng-class="{horizontal: bigScreen}">
+            <div ng-repeat="aroma in aromas" class="flex-auto" style="background-color: #00c853; margin-right: 4px; margin-left: 4px">{{ aroma.nombre }}</div>
+
+
+        </div>
+
+        <input type="checkbox" ng-model="isOrizontal">
+
+        {{ bigScreen }}
+
+    </div>
+</paper-header-panel>
