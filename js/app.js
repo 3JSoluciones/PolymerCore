@@ -1,4 +1,4 @@
-angular.module('app', ['ui.router'])
+angular.module('app', ['ui.router', 'ngMaterial'])
 
   .config(function($stateProvider, $urlRouterProvider) {
 
@@ -17,51 +17,56 @@ angular.module('app', ['ui.router'])
         })
   })
 
+    .controller('BaseController', function($scope, $window, $q, $http, cafeApi, fakeData){
+        var baseUrl = 'http://182.168.1.34:8000/api/';
 
-    .controller('BaseController', function($scope, $window, $q){
+        // Aromas
+        $scope.buscaAroma = 0;
+        $scope.aromas = {};
 
-        $scope.innerWidth = 0;
-
-        $scope.title = "El Coco";
-
-        $scope.$watch($scope.innerWidth, function () {
-            if($scope.innerWidth > 600) {
-
-                $scope.bigScreen = true;
-            } else {
-                $scope.bigScreen = false;
-            }
-        })
-
-        var w = angular.element($window);
-
-        $scope.innerWidth = w[0]['innerWidth'];
-
-        w.bind('resize', function(win){
-            var defered = $q.defer();
-            var promise = defered.promise;
-            $scope.innerWidth = win.currentTarget.innerWidth;
-
+        cafeApi.getAromas().success(function(data) {
+          $scope.aromas = data;
+        }).error(function(data){
+          $scope.aromas = 'Error Loading';
         });
 
-        $scope.$watch("innerWidth", function(newval) {
-            $scope.list[2].display = newval;
-        });
+        // Productores
+        $scope.productores = [];
+        for (var i = 0; i < 5; i++) {
+            fakeData.user().success(function(data){
+                $scope.productores.push(data.results[0].user);
+
+            });
+        }
 
 
 
 
 
-        $scope.aromaId = '';
-        $scope.aromas = [
-            {'id': '1', 'nombre': 'dulcer'},
-            {'id': '2', 'nombre': 'amargo'},
 
-        ]
+
+
     })
 
 
 
     .controller('AboutController', function($scope){
+
+})
+
+.service('cafeApi', function($http){
+
+    this.getAromas = function() {
+      return $http({method: 'jsonp', url: 'http://192.168.1.34:8080/api/aromas?callback=JSON_CALLBACK'})
+    };
+
+})
+
+
+.service('fakeData', function($http){
+
+    this.user = function() {
+        return $http({method: 'get', dataType:'json', url: 'https://randomuser.me/api/'})
+    }
 
 });

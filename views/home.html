@@ -1,24 +1,57 @@
-<!-- paper-header-panel must have an explicit height -->
-<paper-header-panel class="flex" mode="waterfall">
+<style>
 
-    <paper-toolbar>
-        <paper-icon-button icon="search" on-tap="menuAction"></paper-icon-button>
-        <div class="title">Title</div>
-    </paper-toolbar>
+</style>
 
-    <div>
-        <br>
-        <iron-media-query query="(max-width: 600px)" query-matches="{{smallScreen}}"></iron-media-query>
+<div layout="row"  layout-xs="column">
+  <div flex="auto">
 
-        <div class="layout" ng-class="{horizontal: bigScreen}">
-            <div ng-repeat="aroma in aromas" class="flex-auto" style="background-color: #00c853; margin-right: 4px; margin-left: 4px">{{ aroma.nombre }}</div>
+    <md-input-container class="md-block">
+      <label>Aroma</label>
+      <md-select ng-model="buscaAroma"style="width: 100%">
+        <md-option ng-value="aroma.id" ng-repeat="aroma in aromas">{{ aroma.nombre }}</md-option>
+      </md-select>
+    </md-input-container>
+  </div>
+
+  <div flex="auto">
+    <md-input-container class="md-block">
+      <label>Aroma 2</label>
+      <md-select ng-model="buscaAroma">
+        <md-option ng-value="aroma.id" ng-repeat="aroma in aromas">{{ aroma.nombre }}</md-option>
+      </md-select>
+    </md-input-container>
+  </div>
+
+  <div flex="auto">
+    <md-input-container class="md-block">
+      <label>Aroma 2</label>
+      <md-select ng-model="buscaAroma">
+        <md-option ng-value="aroma.id" ng-repeat="aroma in aromas">{{ aroma.nombre }}</md-option>
+      </md-select>
+    </md-input-container>
+  </div>
+
+</div>
+
+<div layout="row"  layout-align="end center">
+  <div class="md-block">
+    <md-button class="md-raised md-primary">
+      <md-icon><i class="material-icons">search</i></md-icon>
+      Buscar
+    </md-button>
+  </div>
+</div>
 
 
-        </div>
-
-        <input type="checkbox" ng-model="isOrizontal">
-
-        {{ bigScreen }}
-
-    </div>
-</paper-header-panel>
+<!-- Lista -->
+<md-list>
+  <md-list>
+    <md-list-item class="md-2-line" ng-repeat="productor in productores">
+      <img src="{{ productor.picture.thumbnail }}" class="md-avatar">
+      <div class="md-list-item-text">
+        <h3>{{ productor.name.title }}. {{ productor.name.first }} {{ productor.name.last }}</h3>
+        <p>ijij</p>
+      </div>
+    </md-list-item>
+  </md-list>
+</md-list>
