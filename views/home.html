@@ -1,57 +1,178 @@
 <style>
+    md-input-container {
+        margin-right: 10px;
+        margin-left: 10px;
+    }
 
 </style>
+<br>
 
-<div layout="row"  layout-xs="column">
-  <div flex="auto">
+<div layout style="background-color: #4e91fc">
 
-    <md-input-container class="md-block">
-      <label>Aroma</label>
-      <md-select ng-model="buscaAroma"style="width: 100%">
-        <md-option ng-value="aroma.id" ng-repeat="aroma in aromas">{{ aroma.nombre }}</md-option>
-      </md-select>
-    </md-input-container>
-  </div>
+    <div flex="20">
+        <md-card style="background-color: #fcffdc; position: static;" class="md-whiteframe-5dp">
+            <md-card-header>
+                <i class="material-icons">search</i> Buscar Cafe
+            </md-card-header>
+            <md-card-content>
+                <div layout="column" layout-xs="column">
+                    <div flex="auto">
 
-  <div flex="auto">
-    <md-input-container class="md-block">
-      <label>Aroma 2</label>
-      <md-select ng-model="buscaAroma">
-        <md-option ng-value="aroma.id" ng-repeat="aroma in aromas">{{ aroma.nombre }}</md-option>
-      </md-select>
-    </md-input-container>
-  </div>
+                        <md-input-container class="md-block">
+                            <label>Aroma</label>
+                            <md-select ng-model="buscar.aroma" style="width: 100%">
+                                <md-option ng-value="aroma.id" ng-repeat="aroma in aromas">{{ aroma.nombre }}
+                                </md-option>
+                            </md-select>
+                        </md-input-container>
+                    </div>
 
-  <div flex="auto">
-    <md-input-container class="md-block">
-      <label>Aroma 2</label>
-      <md-select ng-model="buscaAroma">
-        <md-option ng-value="aroma.id" ng-repeat="aroma in aromas">{{ aroma.nombre }}</md-option>
-      </md-select>
-    </md-input-container>
-  </div>
+                    <div flex="auto">
+                        <md-input-container class="md-block">
+                            <label>Acidez</label>
+                            <md-select ng-model="buscar.acidez">
+                                <md-option ng-value="acidez.id" ng-repeat="acidez in acideces">{{ acidez.nombre }}
+                                </md-option>
+                            </md-select>
+                        </md-input-container>
+                    </div>
+
+                    <div flex="auto">
+                        <md-input-container class="md-block">
+                            <label>Sabor</label>
+                            <md-select ng-model="buscar.sabor">
+                                <md-option ng-value="sabor.id" ng-repeat="sabor in sabores">{{ sabor.nombre }}
+                                </md-option>
+                            </md-select>
+                        </md-input-container>
+                    </div>
+
+                </div>
+
+                <div layout="column" layout-xs="column">
+                    <div flex="auto">
+                        <md-input-container class="md-block">
+                            <label>Municipio</label>
+                            <md-select ng-model="buscar.muni">
+                                <md-option ng-value="municipio.id" ng-repeat="municipio in municipios">{{
+                                    municipio.nombre }}
+                                </md-option>
+                            </md-select>
+                        </md-input-container>
+                    </div>
+
+                    <div flex="auto">
+                        <md-input-container class="md-block">
+                            <label>Organizacion</label>
+                            <md-select ng-model="buscar.organizacion">
+                                <md-option ng-value="organizacion.id" ng-repeat="organizacion in organizaciones">{{
+                                    organizacion.nombre }}
+                                </md-option>
+                            </md-select>
+                        </md-input-container>
+                    </div>
+
+                    <div flex="auto">
+                        <md-input-container class="md-block">
+                            <label>Altura</label>
+                            <md-select ng-model="buscar.altura">
+                                <md-option ng-value="1000-1100">1000-1100 km</md-option>
+                                <md-option ng-value="1101-1200">1101-1200 km</md-option>
+                                <md-option ng-value="1201-1300">1201-1300 km</md-option>
+                                <md-option ng-value="1301-1400">1301-1400 km</md-option>
+                                <md-option ng-value="1401-1500">1401-1500 km</md-option>
+                                <md-option ng-value="1501-1600">1501-1600 km</md-option>
+                                <md-option ng-value="1601-1700">1601-1700 km</md-option>
+                                <md-option ng-value="1701-1800">1701-1800 km</md-option>
+                                <md-option ng-value="1801-1900">1801-1900 km</md-option>
+                                <md-option ng-value="1901-2000">1901-2000 km</md-option>
+                            </md-select>
+                        </md-input-container>
+                    </div>
+
+                </div>
+
+                <div layout="column" layout-xs="column">
+
+                    <div flex="auto">
+                        <md-input-container class="md-block">
+                            <label>Variedad</label>
+                            <md-select ng-model="buscar.variedad">
+                                <md-option ng-value="variedad.id" ng-repeat="variedad in variedades">{{ variedad.nombre
+                                    }}
+                                </md-option>
+                            </md-select>
+                        </md-input-container>
+                    </div>
+
+
+                </div>
+                <div layout="row" layout-align="end center">
+                    <div class="md-block">
+                        <md-button class="md-raised md-warn" ng-click="limpiar()">
+                            <md-icon><i class="material-icons">search</i></md-icon>
+                            Resetear
+                        </md-button>
+                    </div>
+                </div>
+            </md-card-content>
+            <div layout="row" layout-align="center center" ng-show="buscando">
+                <md-progress-circular class="md-accent" md-diameter="40"></md-progress-circular>
+            </div>
+            <i  ng-hide="buscando" style="text-align: center"><b>{{ (productores | filter: filterVariedad |filter: filterOrganizacion |
+                filter:filterMunicipio |filter:filterSabor | filter:filterAcidez | filter:filterAroma).length }}</b>
+                Encontrados</i>
+
+        </md-card>
+    </div>
+    <div flex="auto">
+
+
+        <div layout="row"
+             ng-repeat="productor in productores | filter: filterVariedad |filter: filterOrganizacion | filter:filterMunicipio |filter:filterSabor | filter:filterAcidez | filter:filterAroma "
+             ng-hide="buscando" layout-xs="column" layout-align="center center">
+            <div flex="95">
+
+                <md-card style="background-color: #f9f9f9" class="md-whiteframe-5dp">
+                    <md-card-header>
+                        <md-card-avatar>
+                            <img class="md-avatar" ng-src="http://si.cafesdelhuila.org/perfiles/{{ productor.foto }}"/>
+                        </md-card-avatar>
+                        <md-card-header-text>
+                            <span class="md-title">{{ productor.nombre }}</span>
+                            <span class="md-subhead">{{ productor.organizacion.nombre }}</span>
+                        </md-card-header-text>
+                    </md-card-header>
+                    <md-card-content>
+                        <p>
+                        <div ng-repeat="finca in productor.fincas"><b>Finca:</b> {{ finca.finca }}, <b>Municipio:</b> {{
+                            finca.municipio.nombre }}<br>
+                            <div ng-repeat="lote in finca.lotes">- <b>Variedad: </b>{{ lote.variedad1.nombre }} | <b>Notas:</b>
+                                {{ lote.notas_variedad1 }}
+                            </div>
+                            <br>
+                        </div>
+                        <md-button class="md-primary md-raised" ng-click="showAdvanced($event, productor)" flex="auto">
+                            Ver
+                        </md-button>
+                        </p>
+                    </md-card-content>
+                </md-card>
+
+            </div>
+
+
+        </div>
+    </div>
 
 </div>
 
-<div layout="row"  layout-align="end center">
-  <div class="md-block">
-    <md-button class="md-raised md-primary">
-      <md-icon><i class="material-icons">search</i></md-icon>
-      Buscar
-    </md-button>
-  </div>
-</div>
 
 
-<!-- Lista -->
-<md-list>
-  <md-list>
-    <md-list-item class="md-2-line" ng-repeat="productor in productores">
-      <img src="{{ productor.picture.thumbnail }}" class="md-avatar">
-      <div class="md-list-item-text">
-        <h3>{{ productor.name.title }}. {{ productor.name.first }} {{ productor.name.last }}</h3>
-        <p>ijij</p>
-      </div>
-    </md-list-item>
-  </md-list>
-</md-list>
+
+
+
+
+
+
+

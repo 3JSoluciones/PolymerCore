@@ -1,10 +1,124 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<md-dialog aria-label="Mango (Fruit)">
+    <form>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>{{ productor.nombre }}</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content style="min-width: 700px;max-height:700px; width: 700px ">
+            <md-tabs md-dynamic-height md-border-bottom>
+                <md-tab label="Informacion">
+                    <md-content class="md-padding">
+                        <img class="md-media-sm" width="200px"
+                             ng-src="http://si.cafesdelhuila.org/perfiles/{{ productor.foto }}" alt=""><br>
+                        <h1>{{ productor.nombre }}</h1>
+                        {{ productor.bio }}
+                    </md-content>
+                </md-tab>
+                <md-tab label="Fincas">
+                    <md-content class="md-padding">
 
-</body>
-</html>
+                        <div ng-repeat="finca in productor.fincas"><h1><b>Finca:</b> {{ finca.finca }},
+                            <b>Municipio:</b> {{ finca.municipio.nombre }}</h1>
+                            <div ng-repeat="lote in finca.lotes"><h3>- <b>Variedad: </b>{{ lote.variedad1.nombre }}</h3>
+                                <ul>
+                                    <li><b>Acidez:</b> {{ lote.acidez.nombre }}</li>
+                                    <li><b>Aroma:</b> {{ lote.aroma.nombre }}</li>
+                                    <li><b>Sabor:</b> {{ lote.sabor.nombre }}</li>
+                                    <li><b>Notas:</b> {{ lote.notas_variedad1 }}</li>
+                                </ul>
+                                <i  ng-if="lote.perfil != 'perfil'">
+                                    <a href="http://si.cafesdelhuila.org/medios_lotes/{{ lote.perfil }}" target="_blank">Descargar
+                                        ficha</a>
+                                </i>
+
+
+                            </div>
+                            <hr>
+                        </div>
+
+                    </md-content>
+                </md-tab>
+                <md-tab label="Certificaciones">
+                    <md-content class="md-padding">
+
+                        <ul>
+                            <li ng-repeat="certificacion in productor.certificacion_productor">{{ certificacion.certificacion.nombre }}</li>
+                        </ul>
+
+                    </md-content>
+                </md-tab>
+                <md-tab label="Medios">
+                    <md-content class="md-padding">
+
+
+                        <i ng-repeat="medio in productor.medios">
+                            <a href="http://api.cafesdelhuila.org/medios/{{ medio.nombre }}">- {{ medio.nombre
+                                }}</a><br>
+                        </i>
+
+
+                    </md-content>
+                </md-tab>
+
+                <md-tab label="Contactar">
+
+                    <md-content>
+                        <form name="contactar">
+                            <md-input-container class="md-block">
+                                <label>Nombre / Name</label>
+                                <input required ng-model="contactar.nombre">
+                                <div ng-messages="contactar.nombre.$error">
+                                    <div ng-message="required">This is required.</div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="md-block">
+                                <label>e-Mail</label>
+                                <input required name="email" ng-model="contactar.email" type="email">
+                                <div ng-messages="contactar.email.$error">
+                                    <div ng-message="required">This is required.</div>
+                                    <div ng-message="">This is required.</div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="md-block">
+                                <label>Telefono / Phone</label>
+                                <input required name="telefono" ng-model="contactar.telefono">
+                                <div ng-messages="contactar.telefono.$error">
+                                    <div ng-message="required">This is required.</div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="md-block">
+                                <label>Pais / Country</label>
+                                <input required name="pais" ng-model="contactar.pais">
+                                <div ng-messages="contactar.pais.$error">
+                                    <div ng-message="required">This is required.</div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="md-block">
+                                <label>Mensaje / Message</label>
+                                <textarea ng-model="contactar.mensaje" columns="1" rows="5"></textarea>
+                            </md-input-container>
+                            <md-progress-linear md-mode="indeterminate" ng-show="enviando" ></md-progress-linear>
+                            <md-button class="md-raised" ng-click="sendContactar()">
+                                <md-icon><i class="material-icons">send</i></md-icon>
+                                Enviar
+                            </md-button>
+                        </form>
+
+                    </md-content>
+                </md-tab>
+            </md-tabs>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <hr>
+            <md-button ng-click="answer('useful')" style="margin-right:20px;" class="md-raised md-warn">
+                <md-icon><i class="material-icons">close</i></md-icon>
+                Cerrar
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>
